@@ -1,0 +1,22 @@
+{
+  "name": "clone-spotify-ads",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">Clone Spotify</h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlinyKelly/clone-spotify-ADS.git"
+  },
+  "author": "Aliny, Mario, Arthur, Rodrigo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlinyKelly/clone-spotify-ADS/issues"
+  },
+  "homepage": "https://github.com/AlinyKelly/clone-spotify-ADS#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
