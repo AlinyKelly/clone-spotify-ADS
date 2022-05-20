@@ -74,14 +74,14 @@ server.post('/playlists', (req, res) => {
 })
 
 // login (buscar usuário)
-server.get('/usuario/:email', (req, res) => {
-    const { email } = req.params;
+server.get('/usuario', (req, res) => {
+    const { email } = req.query;
     return res.json(usuarios.find((u) => u.email == email));
 })
 
 // editar usuário
-server.put('/usuario/:email', (req, res) => {
-    const { email } = req.params;
+server.put('/usuario', (req, res) => {
+    const { email } = req.query;
     const data = req.body;
     let index = usuarios.findIndex((u) => u.email == email);
 
@@ -92,8 +92,8 @@ server.put('/usuario/:email', (req, res) => {
 })
 
 // buscar musica por nome
-server.get('/musica/:nome', (req, res) => {
-    const { nome } = req.params;
+server.get('/musica', (req, res) => {
+    const { nome } = req.query;
     return res.json(musicas.find((m) => m.nome == nome));
 })
 
