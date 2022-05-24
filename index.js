@@ -73,6 +73,13 @@ server.post('/playlists', (req, res) => {
     return res.json(play);
 })
 
+// cadastrar usuario
+server.post('/usuario', (req, res) => {
+    const usuario = req.body;
+    usuarios.push(usuario)
+    return res.json(usuario);
+})
+
 // login (buscar usuário)
 server.get('/usuario', (req, res) => {
     const { email } = req.query;
@@ -98,7 +105,7 @@ server.get('/musica', (req, res) => {
 })
 
 // editar playlist
-server.put('/playlists/:id', (req, res) => {
+server.put('/playlists', (req, res) => {
     const { id } = req.params;
     const { nome } = req.body;
     let index = playlists.findIndex((p) => p.id == id);
@@ -109,5 +116,21 @@ server.put('/playlists/:id', (req, res) => {
     playlists[index].nome = nome;
     return res.json(playlists[index]);
 })
+
+// bonus
+server.delete('/playlists', (req, res) => {
+    const { nome } = req.query;
+
+    let playlist_idx = playlists.findIndex((p) => p.nome == nome);
+
+    if (playlist_idx == -1) {
+        res.status(202);
+        return res.json({ msg: "Playlist não encontrada!" });
+    }
+
+    playlists.splice(playlist_idx, 1);
+
+    return res.json({ msg: "Playlist removida!" });
+});
 
 server.listen(3001);
