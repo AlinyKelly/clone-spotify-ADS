@@ -101,11 +101,11 @@ server.put('/usuario', (req, res) => {
 // buscar musica por nome
 server.get('/musica', (req, res) => {
     const { nome } = req.query;
-    return res.json(musicas.find((m) => m.nome == nome));
+    return res.json(musicas.find((m) => m.nome.includes(nome)));
 })
 
 // editar playlist
-server.put('/playlists', (req, res) => {
+server.put('/playlists/:id', (req, res) => {
     const { id } = req.params;
     const { nome } = req.body;
     let index = playlists.findIndex((p) => p.id == id);
@@ -118,19 +118,19 @@ server.put('/playlists', (req, res) => {
 })
 
 // bonus
-server.delete('/playlists', (req, res) => {
-    const { nome } = req.query;
+server.delete('/playlists/:id', (req, res) => {
+    const { id } = req.params;
 
-    let playlist_idx = playlists.findIndex((p) => p.nome == nome);
+    let index = playlists.findIndex((p) => p.id == id);
 
-    if (playlist_idx == -1) {
+    if (index == -1) {
         res.status(202);
         return res.json({ msg: "Playlist não encontrada!" });
     }
 
-    playlists.splice(playlist_idx, 1);
+    playlists.splice(index, 1);
 
-    return res.json({ msg: "Playlist removida!" });
+    return res.json({ msg: "Playlist removida!" });    
 });
 
 server.listen(3001);
