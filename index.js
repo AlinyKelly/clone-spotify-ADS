@@ -1,136 +1,64 @@
 const express = require('express');
 
+const { MongoClient } = require('mongodb');
+
+const api = require('./apiControllers');
+
 const server = express();
 
 server.use(express.json());
 
-const playlists = [
-    {
-        id: 1,
-        nome: "Play1"
-    },
-    {
-        id: 2,
-        nome: "Play2"
-    },
-    {
-        id: 3,
-        nome: "Play3"
-    },
-    {
-        id: 4,
-        nome: "Play4"
-    },
-];
-
-const usuarios = [
-    {
-        nome: "Mario Mamede",
-        email: "mariomamede@live.com",
-        senha: "123456",
-        genero: "Masculino",
-        nascimento: "10/10/1996",
-    },
-    {
-        nome: "Artur",
-        email: "artur@gmail.com",
-        senha: "123456",
-        genero: "Masculino",
-        nascimento: "10/10/1996",
-    },
-];
-
-const musicas = [
-    {
-        nome: "One More Hour",
-        src: "/musica.mp3",
-        album: "The Slow Rush",
-        artista: "Tame Impala",
-    },
-    {
-        nome: "Let It Happen",
-        src: "/musica.mp3",
-        album: "Currents",
-        artista: "Tame Impala",
-    },
-];
-
 // listar playlists
-server.get('/playlists', (req, res) => {
-    return res.json(playlists);
-})
+server.get('/playlists', api.getPlaylists);
 
 // buscar playlist por ID
-server.get('/playlists/:id', (req, res) => {
-    const { id } = req.params;
-    return res.json(playlists.find((p) => p.id == id));
-})
+server.get('/playlists/:id', api.getPlaylist);
 
 // cadastrar playlist
-server.post('/playlists', (req, res) => {
-    const play = req.body;
-    playlists.push(play)
-    return res.json(play);
-})
+server.post('/playlists', api.createPlaylist);
 
 // cadastrar usuario
-server.post('/usuario', (req, res) => {
-    const usuario = req.body;
-    usuarios.push(usuario)
-    return res.json(usuario);
-})
+server.post('/usuario', api.createUser);
 
 // login (buscar usuário)
-server.get('/usuario', (req, res) => {
-    const { email } = req.query;
-    return res.json(usuarios.find((u) => u.email == email));
-})
+server.get('/usuario', api.getUser);
 
 // editar usuário
-server.put('/usuario', (req, res) => {
-    const { email } = req.query;
-    const data = req.body;
-    let index = usuarios.findIndex((u) => u.email == email);
-
-    if (index == -1)
-        return res.json({ msg: "usuario não encontrado" });
-
-    return res.json(usuarios[index] = data);
-})
+server.put('/usuario', api.editUser);
 
 // buscar musica por nome
-server.get('/musica', (req, res) => {
-    const { nome } = req.query;
-    return res.json(musicas.find((m) => m.nome.includes(nome)));
-})
+server.get('/musica', api.getMusics);
 
 // editar playlist
-server.put('/playlists/:id', (req, res) => {
-    const { id } = req.params;
-    const { nome } = req.body;
-    let index = playlists.findIndex((p) => p.id == id);
+server.put('/playlists/:id', api.editPlaylist);
 
-    if (index == -1)
-        return res.json({ msg: "playlist não encontrada" });
+// delete playlist
+server.delete('/playlists/:id', api.deletePlaylist);
 
-    playlists[index].nome = nome;
-    return res.json(playlists[index]);
-})
+// Connection URL
+const url = 'mongodb://localhost:27017';
+const client = new MongoClient(url);
 
-// bonus
-server.delete('/playlists/:id', (req, res) => {
-    const { id } = req.params;
+// Database Name
+const dbName = 'mongo-spotify';
 
-    let index = playlists.findIndex((p) => p.id == id);
+async function main() {
+    // Use connect method to connect to the server
+    await client.connect();
+    console.log('Connected successfully to server');
+    const db = client.db(dbName);
+    const collection = db.collection('spotify');
 
-    if (index == -1) {
-        res.status(202);
-        return res.json({ msg: "Playlist não encontrada!" });
-    }
+    // the following code examples can be pasted here...
 
-    playlists.splice(index, 1);
+    return 'done.';
+}
 
-    return res.json({ msg: "Playlist removida!" });    
+main()
+    .then(console.log)
+    .catch(console.error)
+    .finally(() => client.close());
+
+server.listen(process.env.port || 3001, () => {
+    console.log('Servidor em execução na porta: ');
 });
-
-server.listen(3001);
