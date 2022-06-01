@@ -83,11 +83,11 @@ exports.getMusics = function(req, res) {
 // buscar playlist por ID
 exports.getPlaylist = function(req, res) {
     const { id } = req.params;
-    return res.json(playlists.find((p) => p.id == id));
-};
 
-// listar playlists
-exports.getPlaylists = function(req, res) {
+    if(id) {
+        return res.json(playlists.find((p) => p.id == id));
+    }
+
     return res.json(playlists);
 };
 

@@ -2,14 +2,15 @@ const express = require('express');
 
 const { MongoClient } = require('mongodb');
 
+const cors = require('cors');
+
 const api = require('./apiControllers');
 
 const server = express();
 
 server.use(express.json());
 
-// listar playlists
-server.get('/playlists', api.getPlaylists);
+server.use(cors());
 
 // buscar playlist por ID
 server.get('/playlists/:id', api.getPlaylist);
@@ -59,6 +60,6 @@ main()
     .catch(console.error)
     .finally(() => client.close());
 
-server.listen(process.env.port || 3001, () => {
-    console.log('Servidor em execução na porta: ');
+server.listen(process.env.port || 3000, () => {
+    console.log('Servidor em execução na porta: 3000');
 });
