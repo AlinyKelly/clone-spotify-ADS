@@ -1,6 +1,7 @@
-const express = require('express');
+const APP_PORT = 7890;
+const APP_HOST = '192.168.1.102';
 
-const { MongoClient } = require('mongodb');
+const express = require('express');
 
 const cors = require('cors');
 
@@ -15,6 +16,9 @@ server.use(cors());
 // buscar playlist por ID
 server.get('/playlists/:id', api.getPlaylist);
 
+// editar playlist
+server.get('/playlists', api.getPlaylists);
+
 // cadastrar playlist
 server.post('/playlists', api.createPlaylist);
 
@@ -27,6 +31,9 @@ server.get('/usuario', api.getUser);
 // editar usuário
 server.put('/usuario', api.editUser);
 
+// cadastrar musica
+server.post('/musica', api.createMusic);
+
 // buscar musica por nome
 server.get('/musica', api.getMusics);
 
@@ -36,30 +43,6 @@ server.put('/playlists/:id', api.editPlaylist);
 // delete playlist
 server.delete('/playlists/:id', api.deletePlaylist);
 
-// Connection URL
-const url = 'mongodb://localhost:27017';
-const client = new MongoClient(url);
-
-// Database Name
-const dbName = 'mongo-spotify';
-
-async function main() {
-    // Use connect method to connect to the server
-    await client.connect();
-    console.log('Connected successfully to server');
-    const db = client.db(dbName);
-    const collection = db.collection('spotify');
-
-    // the following code examples can be pasted here...
-
-    return 'done.';
-}
-
-main()
-    .then(console.log)
-    .catch(console.error)
-    .finally(() => client.close());
-
-server.listen(process.env.port || 3000, () => {
-    console.log('Servidor em execução na porta: 3000');
+server.listen(APP_PORT, APP_HOST, () => {
+    console.log(`Servidor ${APP_HOST} em execução na porta: ${APP_PORT}`);
 });

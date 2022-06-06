@@ -1,128 +1,132 @@
-const playlists = [
-    {
-        id: 1,
-        nome: "Play1"
-    },
-    {
-        id: 2,
-        nome: "Play2"
-    },
-    {
-        id: 3,
-        nome: "Play3"
-    },
-    {
-        id: 4,
-        nome: "Play4"
-    },
-];
+//https://irias.com.br/blog/tutorial-nodejs-mongodb-criando-um-crud/
 
-const usuarios = [
-    {
-        nome: "Mario Mamede",
-        email: "mariomamede@live.com",
-        senha: "123456",
-        genero: "Masculino",
-        nascimento: "10/10/1996",
-    },
-    {
-        nome: "Artur",
-        email: "artur@gmail.com",
-        senha: "123456",
-        genero: "Masculino",
-        nascimento: "10/10/1996",
-    },
-];
+const { MongoClient } = require('mongodb');
 
-const musicas = [
-    {
-        nome: "One More Hour",
-        src: "/musica.mp3",
-        album: "The Slow Rush",
-        artista: "Tame Impala",
-    },
-    {
-        nome: "Let It Happen",
-        src: "/musica.mp3",
-        album: "Currents",
-        artista: "Tame Impala",
-    },
-];
+const MONGO_DB = 'spotify';
+const MONGO_HOST = 'mongodb://localhost:27017';
 
 // login (buscar usuário)
-exports.getUser = function(req, res) {
-    const { email } = req.query;
-    return res.json(usuarios.find((u) => u.email == email));
+exports.getUser = function (req, res) {
+    MongoClient.connect(MONGO_HOST, (err, client) => {
+        if (err) throw err
+        const database = client.db(MONGO_DB);
+        database.collection('users').find({ email: req.query.email }).toArray((err, result) => {
+            if (err) throw err
+            res.send(result);
+        });
+    });
 };
 
 // cadastrar usuario
-exports.createUser = function(req, res) {
-    const usuario = req.body;
-    usuarios.push(usuario)
-    return res.json(usuario);
+exports.createUser = function (req, res) {
+    MongoClient.connect(MONGO_HOST, (err, client) => {
+        if (err) throw err
+        const database = client.db(MONGO_DB);
+        const usuario = req.body;
+        database.collection('users').insertOne(usuario, (err) => {
+            if (err) throw err
+            res.status(201);
+            res.json(usuario);
+        });
+    });
 };
 
 // editar usuário
-exports.editUser = function(req, res) {
-    const { email } = req.query;
-    const data = req.body;
-    let index = usuarios.findIndex((u) => u.email == email);
+exports.editUser = function (req, res) {
+    MongoClient.connect(MONGO_HOST, (err, client) => {
+        if (err) throw err
+        const database = client.db(MONGO_DB);
+        database.collection('users').updateOne({ email: req.query.email }, { $set: req.body }, (err) => {
+            if (err) throw err
+            res.send();
+        });
+    });
+};
 
-    if (index == -1)
-        return res.json({ msg: "usuario não encontrado" });
-
-    return res.json(usuarios[index] = data);
+// cadastrar musica
+exports.createMusic = function (req, res) {
+    MongoClient.connect(MONGO_HOST, (err, client) => {
+        if (err) throw err
+        const database = client.db(MONGO_DB);
+        const music = req.body;
+        database.collection('musics').insertOne(music, (err) => {
+            if (err) throw err
+            res.status(201);
+            res.json(music);
+        });
+    });
 };
 
 // buscar musica por nome
-exports.getMusics = function(req, res) {
-    const { nome } = req.query;
-    return res.json(musicas.find((m) => m.nome.includes(nome)));
+exports.getMusics = function (req, res) {
+    MongoClient.connect(MONGO_HOST, (err, client) => {
+        if (err) throw err
+        const database = client.db(MONGO_DB);
+        database.collection('musics').find({ nome: { $regex: req.query.nome } }).toArray((err, result) => {
+            if (err) throw err
+            res.send(result);
+        });
+    });
 }
 
 // buscar playlist por ID
-exports.getPlaylist = function(req, res) {
+exports.getPlaylist = function (req, res) {
     const { id } = req.params;
+    MongoClient.connect(MONGO_HOST, (err, client) => {
+        if (err) throw err
+        const database = client.db(MONGO_DB);
+        database.collection('playlists').find({ "id": parseInt(id) }).toArray((err, result) => {
+            if (err) throw err
+            res.send(result);
+        });
+    });
+};
 
-    if(id) {
-        return res.json(playlists.find((p) => p.id == id));
-    }
-
-    return res.json(playlists);
+// buscar playlists
+exports.getPlaylists = function (req, res) {
+    MongoClient.connect(MONGO_HOST, (err, client) => {
+        if (err) throw err
+        const database = client.db(MONGO_DB);
+        database.collection('playlists').find().toArray((err, result) => {
+            if (err) throw err
+            res.send(result);
+        });
+    });
 };
 
 // cadastrar playlist
-exports.createPlaylist = function(req, res) {
-    const play = req.body;
-    playlists.push(play)
-    return res.json(play);
+exports.createPlaylist = function (req, res) {
+    MongoClient.connect(MONGO_HOST, (err, client) => {
+        if (err) throw err
+        const database = client.db(MONGO_DB);
+        database.collection('playlists').insertOne(req.body, (err) => {
+            if (err) throw err
+            res.status(201);
+            res.json(req.body);
+        });
+    });
 };
 
 // editar playlist
-exports.editPlaylist = function(req, res) {
-    const { id } = req.params;
-    const { nome } = req.body;
-    let index = playlists.findIndex((p) => p.id == id);
-
-    if (index == -1)
-        return res.json({ msg: "playlist não encontrada" });
-
-    playlists[index].nome = nome;
-    return res.json(playlists[index]);
+exports.editPlaylist = function (req, res) {
+    MongoClient.connect(MONGO_HOST, (err, client) => {
+        if (err) throw err
+        const database = client.db(MONGO_DB);
+        database.collection('playlists').updateOne({ id: parseInt(req.params.id) }, { $set: { "nome": req.body.nome } }, (err) => {
+            if (err) throw err
+            res.send();
+        });
+    });
 };
 
 // delete playlist
-exports.deletePlaylist = function(req, res) {
-    const { id } = req.params;
-
-    let index = playlists.findIndex((p) => p.id == id);
-
-    if (index == -1) {
-        res.status(202);
-        return res.json({ msg: "Playlist não encontrada!" });
-    }
-
-    playlists.splice(index, 1);
-
-    return res.json({ msg: "Playlist removida!" });
+exports.deletePlaylist = function (req, res) {
+    MongoClient.connect(MONGO_HOST, (err, client) => {
+        if (err) throw err
+        const database = client.db(MONGO_DB);
+        database.collection('playlists').deleteOne({ id: parseInt(req.params.id) }, (err) => {
+            if (err) throw err
+            res.send();
+        });
+    });
 };
