@@ -1,0 +1,19 @@
+.navbar{
+    min-height: 80px;
+}
+
+.nav-link{
+    color: #fff;
+    font-weight: 600;
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+}
+
+.nav-link:hover{
+    color: #1ed760;
+}
+.navbar-divider{
+    border-left: 1px solid white;
+    padding: 8px 0;
+    margin: 0 10px;
+}

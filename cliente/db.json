@@ -1,0 +1,68 @@
+{
+  "Playlists": [
+    {
+      "id": 1,
+      "nome": "Pop",
+      "musicas": [
+        {
+          "nome": "Nome da música",
+          "album": "Nome do Album",
+          "src": "127.0.0.1/music.mp3"
+        },
+        {
+          "nome": "Nome da música2",
+          "album": "Nome do Album2",
+          "src": "127.0.0.1/music.mp3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nome": "Rock",
+      "musicas": [
+        {
+          "nome": "Nome da música",
+          "album": "Nome do Album",
+          "src": "127.0.0.1/music.mp3"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "nome": "Clássicos",
+      "musicas": [
+        {
+          "nome": "aaaaaaaaaaaa",
+          "album": "Nome do Album",
+          "src": "/music.mp3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "nome": "Indie",
+      "musicas": [
+        {
+          "nome": "Nome da música",
+          "album": "Nome do Album",
+          "src": "127.0.0.1/music.mp3"
+        }
+      ]
+    }
+  ],
+  "UserPlaylistsMock": [],
+  "usuarios": [
+    {
+      "nome": "Arthur",
+      "email": "arthurbrasil45@gmail.com",
+      "senha": "123456",
+      "id": 1
+    },
+    {
+      "nome": "Mario",
+      "email": "mariomamede96@gmail.com",
+      "senha": "mamede123",
+      "id": 2
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+.banner{
+    background-image: url(https://www-growth.scdn.co/static/home/bursts-tablet.svg);
+    background-color: rgb(41, 65, 171);
+    background-size: 153%;
+    background-position: right 40% center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    color: #1ed760;
+    font-family: spotify-circular, Helvetica, Arial, sans-serif;
+  }
+
+  .banner h1{
+    font-size: 104px;
+    line-height: 104px;
+    padding-bottom: 24px;
+    letter-spacing: -0.04em;
+    font-weight: 900;
+  }
+
+  .banner p{
+    font-size: 18px;
+    line-height: 24px;
+    padding-bottom: 40px;
+  }
+
+  .button{
+    background-color: #1ed760;
+    color: rgb(41, 65, 171);
+    border-radius: 500px;
+    font-size: 14px;
+    padding: 14px 32px;
+    font-weight: 700;
+    margin: 0px 30%;
+  }

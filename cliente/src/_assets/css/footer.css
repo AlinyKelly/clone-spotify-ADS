@@ -1,0 +1,35 @@
+.footer{
+    padding: 80px 20px 50px 20px;
+    background-color: black;
+  }
+
+  .footer p{
+    color: #919496;
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.4;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .footer a{
+    color: #fff !important;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-decoration: none;
+    width: 100%;
+    padding: 3px 0 15px;
+  }
+
+  .footer a:hover{
+    color: #1ed760 !important;
+  }
+
+  .footer i{
+    color: #fff;
+    font-size: 32px;
+    padding: 0 10px;
+  }
+  

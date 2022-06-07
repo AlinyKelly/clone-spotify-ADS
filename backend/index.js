@@ -1,4 +1,4 @@
-const APP_PORT = 7890;
+const APP_PORT = 3001;
 const APP_HOST = '192.168.1.102';
 
 const express = require('express');

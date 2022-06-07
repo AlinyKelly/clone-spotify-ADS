@@ -1,0 +1,115 @@
+svg {
+    fill: white;
+}
+
+.imgAbt {
+    width: 24px;
+    height: 24px;
+}
+
+.divider {
+    border-top: 1px solid #282828;
+    width: 90%;
+}
+
+.player-button {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 32px;
+    color: #000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    min-width: 32px;
+    position: relative;
+    -webkit-transition: none 33ms cubic-bezier(.3, 0, .7, 1);
+    transition: none 33ms cubic-bezier(.3, 0, .7, 1);
+    -webkit-transition-property: all;
+    transition-property: all;
+    width: 32px;
+}
+
+input[type="range"] {
+    height: 4px;
+    border-radius: 100px;
+    -webkit-appearance: none;
+    background: #111;
+    outline: none;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0px;
+    height: 0px;
+    background: transparent;
+    cursor: pointer;
+    border: 4px solid white;
+    box-shadow: -407px 0 0 400px white;
+}
+
+
+.ui.input {
+    width: 100%;
+}
+
+.playlist {
+    color: white;
+    background-color: #121212;
+}
+
+.table {
+    color: white;
+    background-color: #121212;
+}
+
+tbody tr:hover {
+    background: #252525;
+}
+
+.music-title {
+    font-size: 182px;
+    margin-top: -50px;
+    margin-left: -10px;
+}
+
+.playlist-element {
+    background: #181818 !important;
+}
+
+.playlist-element:hover {
+    background: #252525 !important;
+}
+
+.table tr th {
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+    /* Change the color you want to set */
+}
+
+.table tr td {
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+    /* Change the color you want to set */
+}
+
+.play {
+    width: 16px;
+    height: 16px;
+    vertical-align: revert;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: #1ed760;
+}
