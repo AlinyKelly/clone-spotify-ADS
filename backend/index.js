@@ -14,7 +14,10 @@ server.use(express.json());
 server.use(cors());
 
 // buscar playlist por ID
-server.get('/playlists/:id', api.getPlaylist);
+server.get('/playlists/:id', api.getPlaylistbyId);
+
+// buscar playlist por ID
+server.get('/playlist/:nome', api.getPlaylistbyName);
 
 // editar playlist
 server.get('/playlists', api.getPlaylists);
@@ -36,6 +39,9 @@ server.post('/musica', api.createMusic);
 
 // buscar musica por nome
 server.get('/musica', api.getMusics);
+
+// buscar musica por id
+server.get('/musica/:id', api.getMusicsbyId);
 
 // editar playlist
 server.put('/playlists/:id', api.editPlaylist);
