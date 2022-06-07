@@ -10,7 +10,6 @@ import Faq from './features/faq/Faq';
 import UserSignin from './features/cadastro/UserSignin.js';
 import Editar from './features/cadastro/editar';
 import { Route, Routes } from 'react-router';
-import { PlaylistsMock } from "./__mocks__/PlaylistMock"
 
 function App() {
 
@@ -29,8 +28,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/inicio" element={<Iniciar />} />
-        <Route path="/myplaylist" element={<MyPlaylist />} />
-        <Route path="/playlist" component={Playlist} />
+        <Route path="/myPlaylist" element={<MyPlaylist />} />
+        <Route path="/playlist" element={<Playlist />} />
       </Routes>
       <Navbar />
       <Routes>

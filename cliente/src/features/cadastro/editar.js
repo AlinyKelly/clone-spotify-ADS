@@ -35,7 +35,7 @@ export default function Cadastro(props) {
     }
 
     axios.put(`http://mario.software:3001/usuario?email=${usuarioLogado.email}`, usuario)
-      .then(() => {
+      .then((res) => {
         user_login(usuario);
       })
   }

@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios';
 import Play from "../../components/Player"
-import { PlaylistsMock } from "../../__mocks__/PlaylistMock"
 import { UserPlaylistsMock } from "../../__mocks__/PlaylistMock"
 import Sidebar from '../../components/Sidebar'
 import _ from 'lodash'
@@ -20,23 +19,16 @@ const initialState = {
   value: '',
 }
 
-axios.get('http://localhost:3001/Playlists')
-  .then((res) => {
-    playlist_data = res.data;
-    playlist_data.map((p, p_index) =>
-      p.musicas.map((m, m_index) =>
-        source.push({ title: m.nome, description: m.album, playlist_id: p_index, music_id: m_index })
-        
-        ),
-        UserPlaylistsMock = source
-    );
-})
-
-/*PlaylistsMock.map((p, p_index) =>
-  p.musicas.map((m, m_index) =>
-    source.push({ title: m.nome, description: m.album, playlist_id: p_index, music_id: m_index })
-  )
-);*/
+axios.get("http://mario.software:3001/musica").then((res) => {
+  const musics = res.data;
+  musics.map((m, m_index) =>
+    source.push({
+      id: m.id,
+      title: m.nome,
+      description: m.album
+    })
+  );
+});
 
 function exampleReducer(state, action) {
   switch (action.type) {
@@ -59,8 +51,7 @@ export default function MyPlaylist() {
 
   playlist_id = queryParams.get("id");
 
-  // if (UserPlaylistsMock.length==0)
-  
+  //if (UserPlaylistsMock.length==0)
 
   let playlist_name = UserPlaylistsMock[playlist_id].nome;
 

@@ -2,39 +2,33 @@ import _ from 'lodash'
 import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
-import { PlaylistsMock } from "../__mocks__/PlaylistMock"
+
+let one_request = true;
 
 export default function MusicPlayer(props) {
   var is_play = false;
-  let music_obj = [];
-  let music_id = props.music;
-  let playlist_id = props.playlist;
+  let music = props.music;
 
   const [musicPlayer, setMusicPlayer] = useState([]);
 
-  if (playlist_id != null && music_id != null) {
-    axios.get('http://localhost:3001/Playlists')
+  if (music != 0 && one_request) {
+    one_request = false;
+    axios.get('http://mario.software:3001/musica/' + music)
       .then((res) => {
-        const playlists = res.data;
-        music_obj = playlists[playlist_id].musicas[music_id];
-        setMusicPlayer( music_obj );
-        
+        setMusicPlayer( res.data )
       })
-    music_obj = PlaylistsMock[playlist_id].musicas[music_id];
   }
-  // aaquiii 
-console.log(musicPlayer)
   const MusicElement = () => {
-    if (!_.isEmpty(music_obj)) {
+    if (!_.isEmpty(musicPlayer)) {
       return (
         <div class="d-flex">
           <div class="d-flex align-items-center">
             <div class="m-2">
               <h5>
-                <a href='#'>{music_obj.nome}</a>
+                <a href='#'>{musicPlayer.nome}</a>
               </h5>
               <span>
-                <a href='#' >{music_obj.album}</a>
+                <a href='#' >{musicPlayer.album}</a>
               </span>
             </div>
             <button type="button" className="player-button">
@@ -60,8 +54,7 @@ console.log(musicPlayer)
   }
 
   const PlayerElement = () => {
-
-    let audio = new Audio(music_obj.src);
+    let audio = new Audio(musicPlayer.src);
 
     const start_stop = () => {
       is_play = !is_play;
@@ -77,9 +70,6 @@ console.log(musicPlayer)
       </button>
     );
   }
-
-  //const music_obj = PlaylistsMock.find(item => item.musicas.nome === props.music);
-  //
   return (
     <div>
       <div className="bg-black p-4">
