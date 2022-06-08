@@ -12,10 +12,13 @@ function Sidebar() {
   const [userPlaylists, setUserPlaylists] = useState([]);
 
   if(one_init){
-    one_init = false;
-    const user_data = user_get_userdata();
-    if(user_data.playlist != undefined){
-      setUserPlaylists(user_data.playlist);
+    if(user){
+      axios.get(`http://mario.software:3001/usuario?email=${user.email}`)
+        .then((res) => {
+          const usuario = res.data[0];
+          setUserPlaylists(usuario.playlists);
+      })
+      one_init = false;
     }
   }
 

@@ -1,17 +1,18 @@
 import React from 'react'
 import axios from 'axios';
+import { useState } from "react";
 import Play from "../../components/Player"
 import { UserPlaylistsMock } from "../../__mocks__/PlaylistMock"
 import Sidebar from '../../components/Sidebar'
 import _ from 'lodash'
 import { Search, Grid, Header, Segment } from 'semantic-ui-react'
+import { user_get_userdata } from "../../components/UserFunc";
+
+let user = user_get_userdata();
 
 var playlist_id = 0;
-let sel_playlist_id = null;
-let sel_music_id = null;
 
 const source = [];
-const playlist_data = [];
 
 const initialState = {
   loading: false,
@@ -25,7 +26,8 @@ axios.get("http://mario.software:3001/musica").then((res) => {
     source.push({
       id: m.id,
       title: m.nome,
-      description: m.album
+      album: m.album,
+      src: m.src,
     })
   );
 });
@@ -51,9 +53,8 @@ export default function MyPlaylist() {
 
   playlist_id = queryParams.get("id");
 
-  //if (UserPlaylistsMock.length==0)
-
-  let playlist_name = UserPlaylistsMock[playlist_id].nome;
+  let playlist_name = user.playlists[playlist_id].nome;
+  console.log(user.playlists[playlist_id])
 
   const [state, dispatch] = React.useReducer(exampleReducer, initialState)
   const { loading, results, value } = state
@@ -85,31 +86,41 @@ export default function MyPlaylist() {
   }, [])
 
   const music_obj = source.find(item => item.title === value);
+  const music_id = music_obj ? music_obj.id : 0;
 
   if (music_obj != undefined) {
-    sel_playlist_id = music_obj.playlist_id;
-    sel_music_id = music_obj.music_id;
-  }
-  else {
-    sel_playlist_id = null;
-    sel_music_id = null;
+    user.playlists[playlist_id].musicas.push(music_obj);
+
+    delete user._id;
+
+    axios.put(`http://mario.software:3001/usuario?email=${user.email}`, user)
+      .then((res) => {
+        console.log(res);
+      })
   }
 
-  if (music_obj != undefined) {
-    UserPlaylistsMock[playlist_id].musicas.push(playlist_data[sel_playlist_id].musicas[sel_music_id]);
-  }
+  const CreateFromPlaylist = (index) => {
+    //UserPlaylistsMock[playlist_id].musicas.pop(index);
+  };
 
   const RemoveFromPlaylist = (index) => {
-    UserPlaylistsMock[playlist_id].musicas.pop(index);
+    user.playlists[playlist_id].musicas.pop(index);
+    
+    delete user._id;
+
+    axios.put(`http://mario.software:3001/usuario?email=${user.email}`, user)
+      .then((res) => {
+        console.log(res);
+      })
   };
 
   const MyMusicList = () => {
     let contador = 0;
-    const dados = UserPlaylistsMock[playlist_id].musicas.map(
+    const dados = user.playlists[playlist_id].musicas.map(
       (p) =>
         <tr>
           <th scope="row">{++contador}</th>
-          <td>{p.nome}</td>
+          <td>{p.title}</td>
           <td>{p.album}</td>
           <td></td>
           <td><Play musica={p.src} /></td>

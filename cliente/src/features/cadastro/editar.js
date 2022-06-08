@@ -81,7 +81,7 @@ export default function Cadastro(props) {
           <br />
           <div className='row'>
             <button type="submit" className="btn btn-success mb-3 " >Enviar</button>
-            <Link  to="/"><button type='button' className=' btn btn-danger mb-3 ' onClick={user_logout}>Logout</button></Link>
+            <Link type='button' className=' btn btn-danger mb-3' to="/" onClick={user_logout}>Logout</Link>
           </div>
         </form>
       </div>

@@ -1,6 +1,9 @@
 import { hide } from '@popperjs/core';
+import axios from 'axios';
 import React from 'react';
 import { useState } from "react";
+import { user_login, user_logout, user_logado, user_get_userdata } from "../../components/UserFunc";
+
 
 
 export default function Cadastro(props) {
@@ -15,8 +18,6 @@ export default function Cadastro(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    console.log(usuario);
 
     const data = {
       nome,
@@ -45,15 +46,23 @@ export default function Cadastro(props) {
     } else {
       alert(' Erro !' + "\n" + "\n" + '- Preencha todos os campos ' + "\n" + "\n" + '- Confirme seu Email ')
     }
+
+    const usuario = {
+      nome,
+      email,
+      senha,
+      genero,
+      nascimento,
+      playlists: [],
+    }
+
+    axios.post(`http://mario.software:3001/usuario`, usuario)
+      .then((res) => {
+        user_login(usuario);
+      })
   }
 
-  const usuario = {
-    nome,
-    email,
-    senha,
-    genero,
-    nascimento
-  }
+  
 
   return (
     <>

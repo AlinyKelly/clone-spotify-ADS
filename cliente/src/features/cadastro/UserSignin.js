@@ -17,6 +17,7 @@ export default function UserSignin() {
       // json-server --watch db.json --port 3001
       .then((res) => {
         const usuario = res.data[0];
+        console.log(usuario)
 
         if (usuario.senha !== senha) {
           setErros({ dadosInvalidos: 'Dados Inválidos' });
