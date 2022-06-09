@@ -8,8 +8,6 @@ import _ from 'lodash'
 import { Search, Grid, Header, Segment } from 'semantic-ui-react'
 import { user_get_userdata } from "../../components/UserFunc";
 
-let user = user_get_userdata();
-
 var playlist_id = 0;
 
 const source = [];
@@ -53,8 +51,9 @@ export default function MyPlaylist() {
 
   playlist_id = queryParams.get("id");
 
+  let user = user_get_userdata();
+
   let playlist_name = user.playlists[playlist_id].nome;
-  console.log(user.playlists[playlist_id])
 
   const [state, dispatch] = React.useReducer(exampleReducer, initialState)
   const { loading, results, value } = state

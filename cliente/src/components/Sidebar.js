@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import spotify_logo from "../_assets/img/Spotify_Logo_RGB_White.png";
 import axios from "axios";
-import { user_get_userdata } from "../components/UserFunc";
+import { user_get_userdata, user_login } from "../components/UserFunc";
 
 let one_init = true;
 
@@ -33,6 +33,7 @@ function Sidebar() {
     axios.put(`http://mario.software:3001/usuario?email=${user.email}`, user)
       .then((res) => {
         console.log(res);
+        user_login(user);
       })
 
     setUserPlaylists([
@@ -111,9 +112,7 @@ function Sidebar() {
             </span>
           </div>
         </div>
-
-        <Link to={window.location.pathname} onClick={criar_playlist}>
-          <div className="row w-140 mt-5">
+          <div className="row w-140 mt-5" onClick={criar_playlist}>
             <div>
               <div className="d-inline-block imgAbt bg-white text-center rounded-1">
                 <svg
@@ -132,7 +131,6 @@ function Sidebar() {
               </span>
             </div>
           </div>
-        </Link>
 
         <div className="divider mt-3"></div>
 

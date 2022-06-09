@@ -6,23 +6,21 @@ import { useEffect } from 'react';
 import { user_get_userdata } from "../components/UserFunc";
 
 export default function Navbar() {
-  const [usuario, setUsuario] = useState([]);
+  const [nomeUsuario, setNomeUsuario] = useState([]);
+
+  const user_data = user_get_userdata();
 
   useEffect(() => {
+    user_data ? setNomeUsuario(user_data.nome) : setNomeUsuario("");
 
-    const user_data = user_get_userdata();
-
-    if(user_data){
-      setUsuario(user_data)
-    }
-
+    console.log(user_data)
   }, []);
 
   return (
     <div>
       <nav className="navbar navbar-expand-sm bg-black navbar-black">
         <div className="container">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand">
             <Link to="/"><img src={spotify_logo} alt="Spotify" style={{ width: 100 }} className="rounded-pill" /></Link>
           </a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -42,14 +40,14 @@ export default function Navbar() {
             </ul>
             <div className="navbar-divider"></div>
             <ul className="navbar-nav">
-              <li className="nav-item">
+              <li className="nav-item" style={{ display: !nomeUsuario ? 'block' : 'none' }}>
                 <Link className="nav-link" to="/cadastro">Inscrever-se</Link>
               </li>
-              <li className="nav-item">
+              <li className="nav-item" style={{ display: !nomeUsuario ? 'block' : 'none' }}>
                 <Link className="nav-link" to="/UserSignin">Entrar</Link>
               </li>
-              <li>
-                <Link className='nav-link' to='/editar' > {usuario.nome} </Link>
+              <li style={{ display: nomeUsuario ? 'block' : 'none' }}>
+                <Link className='nav-link' to='/editar' > {nomeUsuario} </Link>
               </li>
             </ul>
           </div>

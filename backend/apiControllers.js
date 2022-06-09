@@ -1,9 +1,10 @@
 //https://irias.com.br/blog/tutorial-nodejs-mongodb-criando-um-crud/
 
 const { MongoClient } = require("mongodb");
-
+//ttBxFiktf11jXMEj
 const MONGO_DB = "spotify";
-const MONGO_HOST = "mongodb://localhost:27017";
+//const MONGO_HOST = "mongodb://localhost:27017";
+const MONGO_HOST = "mongodb+srv://admin:ttBxFiktf11jXMEj@spotify.9fkhh.mongodb.net/?retryWrites=true&w=majority";
 
 // login (buscar usuário)
 exports.getUser = function (req, res) {

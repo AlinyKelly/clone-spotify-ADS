@@ -1,9 +1,12 @@
 import React from 'react'
 import '../../_assets/css/banner.css'
+import Navbar from '../../components/Header.js';
+import Footer from '../../components/Footer.js';
 
 export default function Banner() {
   return (
     <div>
+      <Navbar />
       <div className="banner vh-100">
         <div className="row align-items-center vh-100">
           <div className="col-8 mx-auto">
@@ -13,6 +16,7 @@ export default function Banner() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   )
 }

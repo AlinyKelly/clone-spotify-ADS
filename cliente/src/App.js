@@ -30,16 +30,12 @@ function App() {
         <Route path="/inicio" element={<Iniciar />} />
         <Route path="/myPlaylist" element={<MyPlaylist />} />
         <Route path="/playlist" element={<Playlist />} />
-      </Routes>
-      <Navbar />
-      <Routes>
         <Route path="/" element={<Banner />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/UserSignin" element={<UserSignin />} />
         <Route path="/editar" element={<Editar />} />
       </Routes>
-      <Footer />
     </div>
   );
 }
